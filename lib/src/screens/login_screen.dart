@@ -17,17 +17,24 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  emailField() {
-    return TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'abc@gmail.com',
-        labelText: 'Email Address',
-      ),
+  Widget emailField() {
+    return StreamBuilder(
+      stream: bloc.email,
+      builder: (context, snapshot) {
+        return TextField(
+          onChanged: bloc.changeEmail,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: 'abc@gmail.com',
+            labelText: 'Email Address',
+            errorText: snapshot.error,
+          ),
+        );
+      },
     );
   }
 
-  passwordField() {
+  Widget passwordField() {
     return TextField(
 //      obscureText: true,
       decoration: InputDecoration(
@@ -37,7 +44,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  submitButton() {
+  Widget submitButton() {
     return RaisedButton(
       child: Text('Login'),
       color: Colors.blue,
